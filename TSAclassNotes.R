@@ -60,7 +60,38 @@ waremod <- lm(Cost ~ Sales + Orders)
 summary(waremod)
 #equation
 #Y = -.27825 + .04711X1 + 0.011947X2
+#k is the number of X variables
+#for f-test include:
+#H0 - all of the slopes are zero meaning there is no relationship between the variables
+#H1 - at least one slope is not 0 meaning there is a relationship between the variables
+#fstat: 74.13 and pvalue: 3.043e-10 basically 0 (anything smaller than e-5 is basically 0)
+##pvalue <alpha then reject the null
+#what did you learn: at least one of the X variables has a non zero slope
+
+#For t-test include:
+#H0: slope is zero for Xi (Sales, Orders)
+#H1: slope is not zero for Xi (Sales, Orders)
+#Sales Tvalue: 2.318 p-value: .0306
+##p-value< .05 meaning reject the null
+#meaning the slope of Sales is statistically significant to the Costs model
+#Orders Tvalue: 3.043e-10 p-value: 2.87e-5
+##p-value< .05 meaning reject the null
+#meaning the slope of Orders is statistically significant to the Costs model
+
 
 confint(waremod)
+#do not want 0 in any of the confidence intervals (negative to positive)
 
-###
+cook1 <- cooks.distance(waremod)
+plot(cook1)
+qf(p=.5, df1=2,df2=28,lower.tail=F)
+cook1
+#outliers for cooks
+
+plot(waremod)
+##plot(waremod,residuals(waremod))
+#Check Residuals using LINE
+#linearity - 
+#independence - Derbin Watson
+#Normality - (normal QQ plot) roughly a line good to go
+#equal variance - 
