@@ -89,9 +89,23 @@ cook1
 #outliers for cooks
 
 plot(waremod)
-##plot(waremod,residuals(waremod))
+
+plot(Sales,waremod$residuals)
+plot(Orders,waremod$residuals)
 #Check Residuals using LINE
-#linearity - 
-#independence - Derbin Watson
+#linearity - #look at plot 1 and see no patterns
+#independence - 
 #Normality - (normal QQ plot) roughly a line good to go
 #equal variance - 
+
+#Durbin Watson
+library(lmtest)
+dwtest(waremod)
+#H0: no autocorrelation
+#H1: There is autocorrelation
+#large p-value means we do not reject H0 
+#meaning there is no autocorrelation
+#and can assume model is accurate
+#meaning there is independence
+
+#skip 1G
